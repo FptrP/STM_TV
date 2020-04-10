@@ -1,0 +1,171 @@
+ARM GAS  /tmp/ccGWdWC8.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"gpio.c"
+  12              		.text
+  13              		.section	.text.GPIO_ConfPin,"ax",%progbits
+  14              		.align	1
+  15              		.global	GPIO_ConfPin
+  16              		.arch armv7-m
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu softvfp
+  22              	GPIO_ConfPin:
+  23              		@ args = 0, pretend = 0, frame = 16
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25              		@ link register save eliminated.
+  26 0000 80B4     		push	{r7}
+  27 0002 85B0     		sub	sp, sp, #20
+  28 0004 00AF     		add	r7, sp, #0
+  29 0006 F860     		str	r0, [r7, #12]
+  30 0008 B960     		str	r1, [r7, #8]
+  31 000a 1346     		mov	r3, r2
+  32 000c FB71     		strb	r3, [r7, #7]
+  33 000e BB68     		ldr	r3, [r7, #8]
+  34 0010 072B     		cmp	r3, #7
+  35 0012 16DC     		bgt	.L2
+  36 0014 BB68     		ldr	r3, [r7, #8]
+  37 0016 9B00     		lsls	r3, r3, #2
+  38 0018 BB60     		str	r3, [r7, #8]
+  39 001a FB68     		ldr	r3, [r7, #12]
+  40 001c 1B68     		ldr	r3, [r3]
+  41 001e 0F21     		movs	r1, #15
+  42 0020 BA68     		ldr	r2, [r7, #8]
+  43 0022 01FA02F2 		lsl	r2, r1, r2
+  44 0026 D243     		mvns	r2, r2
+  45 0028 1A40     		ands	r2, r2, r3
+  46 002a FB68     		ldr	r3, [r7, #12]
+  47 002c 1A60     		str	r2, [r3]
+  48 002e FB68     		ldr	r3, [r7, #12]
+  49 0030 1B68     		ldr	r3, [r3]
+  50 0032 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+  51 0034 BA68     		ldr	r2, [r7, #8]
+  52 0036 01FA02F2 		lsl	r2, r1, r2
+  53 003a 1A43     		orrs	r2, r2, r3
+  54 003c FB68     		ldr	r3, [r7, #12]
+  55 003e 1A60     		str	r2, [r3]
+  56 0040 18E0     		b	.L4
+  57              	.L2:
+  58 0042 BB68     		ldr	r3, [r7, #8]
+ARM GAS  /tmp/ccGWdWC8.s 			page 2
+
+
+  59 0044 083B     		subs	r3, r3, #8
+  60 0046 BB60     		str	r3, [r7, #8]
+  61 0048 BB68     		ldr	r3, [r7, #8]
+  62 004a 9B00     		lsls	r3, r3, #2
+  63 004c BB60     		str	r3, [r7, #8]
+  64 004e FB68     		ldr	r3, [r7, #12]
+  65 0050 5B68     		ldr	r3, [r3, #4]
+  66 0052 0F21     		movs	r1, #15
+  67 0054 BA68     		ldr	r2, [r7, #8]
+  68 0056 01FA02F2 		lsl	r2, r1, r2
+  69 005a D243     		mvns	r2, r2
+  70 005c 1A40     		ands	r2, r2, r3
+  71 005e FB68     		ldr	r3, [r7, #12]
+  72 0060 5A60     		str	r2, [r3, #4]
+  73 0062 FB68     		ldr	r3, [r7, #12]
+  74 0064 5B68     		ldr	r3, [r3, #4]
+  75 0066 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+  76 0068 BA68     		ldr	r2, [r7, #8]
+  77 006a 01FA02F2 		lsl	r2, r1, r2
+  78 006e 1A43     		orrs	r2, r2, r3
+  79 0070 FB68     		ldr	r3, [r7, #12]
+  80 0072 5A60     		str	r2, [r3, #4]
+  81              	.L4:
+  82 0074 00BF     		nop
+  83 0076 1437     		adds	r7, r7, #20
+  84 0078 BD46     		mov	sp, r7
+  85              		@ sp needed
+  86 007a 80BC     		pop	{r7}
+  87 007c 7047     		bx	lr
+  89              		.section	.text.GPIO_Lock,"ax",%progbits
+  90              		.align	1
+  91              		.global	GPIO_Lock
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu softvfp
+  97              	GPIO_Lock:
+  98              		@ args = 0, pretend = 0, frame = 8
+  99              		@ frame_needed = 1, uses_anonymous_args = 0
+ 100              		@ link register save eliminated.
+ 101 0000 80B4     		push	{r7}
+ 102 0002 83B0     		sub	sp, sp, #12
+ 103 0004 00AF     		add	r7, sp, #0
+ 104 0006 7860     		str	r0, [r7, #4]
+ 105 0008 3960     		str	r1, [r7]
+ 106 000a 7B68     		ldr	r3, [r7, #4]
+ 107 000c 9B69     		ldr	r3, [r3, #24]
+ 108 000e 1B0C     		lsrs	r3, r3, #16
+ 109 0010 1B04     		lsls	r3, r3, #16
+ 110 0012 7A68     		ldr	r2, [r7, #4]
+ 111 0014 9361     		str	r3, [r2, #24]
+ 112 0016 7B68     		ldr	r3, [r7, #4]
+ 113 0018 9A69     		ldr	r2, [r3, #24]
+ 114 001a 3B68     		ldr	r3, [r7]
+ 115 001c 1A43     		orrs	r2, r2, r3
+ 116 001e 7B68     		ldr	r3, [r7, #4]
+ 117 0020 9A61     		str	r2, [r3, #24]
+ARM GAS  /tmp/ccGWdWC8.s 			page 3
+
+
+ 118 0022 7B68     		ldr	r3, [r7, #4]
+ 119 0024 9B69     		ldr	r3, [r3, #24]
+ 120 0026 43F48032 		orr	r2, r3, #65536
+ 121 002a 7B68     		ldr	r3, [r7, #4]
+ 122 002c 9A61     		str	r2, [r3, #24]
+ 123 002e 7B68     		ldr	r3, [r7, #4]
+ 124 0030 9B69     		ldr	r3, [r3, #24]
+ 125 0032 23F48032 		bic	r2, r3, #65536
+ 126 0036 7B68     		ldr	r3, [r7, #4]
+ 127 0038 9A61     		str	r2, [r3, #24]
+ 128 003a 7B68     		ldr	r3, [r7, #4]
+ 129 003c 9B69     		ldr	r3, [r3, #24]
+ 130 003e 43F48032 		orr	r2, r3, #65536
+ 131 0042 7B68     		ldr	r3, [r7, #4]
+ 132 0044 9A61     		str	r2, [r3, #24]
+ 133 0046 00BF     		nop
+ 134              	.L6:
+ 135 0048 7B68     		ldr	r3, [r7, #4]
+ 136 004a 9B69     		ldr	r3, [r3, #24]
+ 137 004c 03F48033 		and	r3, r3, #65536
+ 138 0050 002B     		cmp	r3, #0
+ 139 0052 F9D0     		beq	.L6
+ 140 0054 7B68     		ldr	r3, [r7, #4]
+ 141 0056 9B69     		ldr	r3, [r3, #24]
+ 142 0058 03F48033 		and	r3, r3, #65536
+ 143 005c 002B     		cmp	r3, #0
+ 144 005e 14BF     		ite	ne
+ 145 0060 0123     		movne	r3, #1
+ 146 0062 0023     		moveq	r3, #0
+ 147 0064 DBB2     		uxtb	r3, r3
+ 148 0066 1846     		mov	r0, r3
+ 149 0068 0C37     		adds	r7, r7, #12
+ 150 006a BD46     		mov	sp, r7
+ 151              		@ sp needed
+ 152 006c 80BC     		pop	{r7}
+ 153 006e 7047     		bx	lr
+ 155              		.ident	"GCC: (Arch Repository) 9.1.0"
+ARM GAS  /tmp/ccGWdWC8.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gpio.c
+     /tmp/ccGWdWC8.s:14     .text.GPIO_ConfPin:0000000000000000 $t
+     /tmp/ccGWdWC8.s:22     .text.GPIO_ConfPin:0000000000000000 GPIO_ConfPin
+     /tmp/ccGWdWC8.s:90     .text.GPIO_Lock:0000000000000000 $t
+     /tmp/ccGWdWC8.s:97     .text.GPIO_Lock:0000000000000000 GPIO_Lock
+
+NO UNDEFINED SYMBOLS

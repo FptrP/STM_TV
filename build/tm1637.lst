@@ -1,0 +1,729 @@
+ARM GAS  /tmp/ccYKgTLR.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"tm1637.c"
+  12              		.text
+  13              		.section	.text.GPIO_IO,"ax",%progbits
+  14              		.align	1
+  15              		.arch armv7-m
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu softvfp
+  21              	GPIO_IO:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 7860     		str	r0, [r7, #4]
+  29 0008 3960     		str	r1, [r7]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31 000c 1A69     		ldr	r2, [r3, #16]
+  32 000e 3B68     		ldr	r3, [r7]
+  33 0010 1A43     		orrs	r2, r2, r3
+  34 0012 7B68     		ldr	r3, [r7, #4]
+  35 0014 1A61     		str	r2, [r3, #16]
+  36 0016 00BF     		nop
+  37 0018 0C37     		adds	r7, r7, #12
+  38 001a BD46     		mov	sp, r7
+  39              		@ sp needed
+  40 001c 80BC     		pop	{r7}
+  41 001e 7047     		bx	lr
+  43              		.global	TM1637_Digits
+  44              		.section	.data.TM1637_Digits,"aw"
+  45              		.align	2
+  48              	TM1637_Digits:
+  49 0000 BF86DBCF 		.ascii	"\277\206\333\317\346\355\375\207\377\357\367\374\271"
+  49      E6EDFD87 
+  49      FFEFF7FC 
+  49      B9
+  50 000d DEF9F1   		.ascii	"\336\371\361"
+  51              		.section	.bss.port,"aw",%nobits
+  52              		.align	2
+  55              	port:
+  56 0000 00000000 		.space	4
+  57              		.section	.bss.clk,"aw",%nobits
+  58              		.align	2
+  61              	clk:
+  62 0000 00000000 		.space	4
+ARM GAS  /tmp/ccYKgTLR.s 			page 2
+
+
+  63              		.section	.bss.dio,"aw",%nobits
+  64              		.align	2
+  67              	dio:
+  68 0000 00000000 		.space	4
+  69              		.section	.text.delay,"ax",%progbits
+  70              		.align	1
+  71              		.syntax unified
+  72              		.thumb
+  73              		.thumb_func
+  74              		.fpu softvfp
+  76              	delay:
+  77              		@ args = 0, pretend = 0, frame = 8
+  78              		@ frame_needed = 1, uses_anonymous_args = 0
+  79              		@ link register save eliminated.
+  80 0000 80B4     		push	{r7}
+  81 0002 83B0     		sub	sp, sp, #12
+  82 0004 00AF     		add	r7, sp, #0
+  83 0006 7860     		str	r0, [r7, #4]
+  84 0008 00BF     		nop
+  85              	.L3:
+  86 000a 7B68     		ldr	r3, [r7, #4]
+  87 000c 5A1E     		subs	r2, r3, #1
+  88 000e 7A60     		str	r2, [r7, #4]
+  89 0010 002B     		cmp	r3, #0
+  90 0012 FAD1     		bne	.L3
+  91 0014 00BF     		nop
+  92 0016 00BF     		nop
+  93 0018 0C37     		adds	r7, r7, #12
+  94 001a BD46     		mov	sp, r7
+  95              		@ sp needed
+  96 001c 80BC     		pop	{r7}
+  97 001e 7047     		bx	lr
+  99              		.section	.text.TM1637_Init,"ax",%progbits
+ 100              		.align	1
+ 101              		.global	TM1637_Init
+ 102              		.syntax unified
+ 103              		.thumb
+ 104              		.thumb_func
+ 105              		.fpu softvfp
+ 107              	TM1637_Init:
+ 108              		@ args = 0, pretend = 0, frame = 16
+ 109              		@ frame_needed = 1, uses_anonymous_args = 0
+ 110 0000 80B5     		push	{r7, lr}
+ 111 0002 84B0     		sub	sp, sp, #16
+ 112 0004 00AF     		add	r7, sp, #0
+ 113 0006 F860     		str	r0, [r7, #12]
+ 114 0008 B960     		str	r1, [r7, #8]
+ 115 000a 7A60     		str	r2, [r7, #4]
+ 116 000c 0E4A     		ldr	r2, .L5
+ 117 000e FB68     		ldr	r3, [r7, #12]
+ 118 0010 1360     		str	r3, [r2]
+ 119 0012 0E4A     		ldr	r2, .L5+4
+ 120 0014 BB68     		ldr	r3, [r7, #8]
+ 121 0016 1360     		str	r3, [r2]
+ 122 0018 0D4A     		ldr	r2, .L5+8
+ 123 001a 7B68     		ldr	r3, [r7, #4]
+ 124 001c 1360     		str	r3, [r2]
+ARM GAS  /tmp/ccYKgTLR.s 			page 3
+
+
+ 125 001e 0A4B     		ldr	r3, .L5
+ 126 0020 1B68     		ldr	r3, [r3]
+ 127 0022 0A4A     		ldr	r2, .L5+4
+ 128 0024 1168     		ldr	r1, [r2]
+ 129 0026 0222     		movs	r2, #2
+ 130 0028 1846     		mov	r0, r3
+ 131 002a FFF7FEFF 		bl	GPIO_ConfPin
+ 132 002e 064B     		ldr	r3, .L5
+ 133 0030 1B68     		ldr	r3, [r3]
+ 134 0032 074A     		ldr	r2, .L5+8
+ 135 0034 1168     		ldr	r1, [r2]
+ 136 0036 0222     		movs	r2, #2
+ 137 0038 1846     		mov	r0, r3
+ 138 003a FFF7FEFF 		bl	GPIO_ConfPin
+ 139 003e 00BF     		nop
+ 140 0040 1037     		adds	r7, r7, #16
+ 141 0042 BD46     		mov	sp, r7
+ 142              		@ sp needed
+ 143 0044 80BD     		pop	{r7, pc}
+ 144              	.L6:
+ 145 0046 00BF     		.align	2
+ 146              	.L5:
+ 147 0048 00000000 		.word	port
+ 148 004c 00000000 		.word	clk
+ 149 0050 00000000 		.word	dio
+ 151              		.section	.text.start,"ax",%progbits
+ 152              		.align	1
+ 153              		.syntax unified
+ 154              		.thumb
+ 155              		.thumb_func
+ 156              		.fpu softvfp
+ 158              	start:
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 1, uses_anonymous_args = 0
+ 161 0000 80B5     		push	{r7, lr}
+ 162 0002 00AF     		add	r7, sp, #0
+ 163 0004 0F4B     		ldr	r3, .L8
+ 164 0006 1868     		ldr	r0, [r3]
+ 165 0008 0F4B     		ldr	r3, .L8+4
+ 166 000a 1B68     		ldr	r3, [r3]
+ 167 000c 0122     		movs	r2, #1
+ 168 000e 9A40     		lsls	r2, r2, r3
+ 169 0010 0E4B     		ldr	r3, .L8+8
+ 170 0012 1B68     		ldr	r3, [r3]
+ 171 0014 0121     		movs	r1, #1
+ 172 0016 01FA03F3 		lsl	r3, r1, r3
+ 173 001a 1343     		orrs	r3, r3, r2
+ 174 001c 1946     		mov	r1, r3
+ 175 001e FFF7FEFF 		bl	GPIO_IO
+ 176 0022 0220     		movs	r0, #2
+ 177 0024 FFF7FEFF 		bl	delay
+ 178 0028 064B     		ldr	r3, .L8
+ 179 002a 1A68     		ldr	r2, [r3]
+ 180 002c 074B     		ldr	r3, .L8+8
+ 181 002e 1B68     		ldr	r3, [r3]
+ 182 0030 1033     		adds	r3, r3, #16
+ 183 0032 0121     		movs	r1, #1
+ARM GAS  /tmp/ccYKgTLR.s 			page 4
+
+
+ 184 0034 01FA03F3 		lsl	r3, r1, r3
+ 185 0038 1946     		mov	r1, r3
+ 186 003a 1046     		mov	r0, r2
+ 187 003c FFF7FEFF 		bl	GPIO_IO
+ 188 0040 00BF     		nop
+ 189 0042 80BD     		pop	{r7, pc}
+ 190              	.L9:
+ 191              		.align	2
+ 192              	.L8:
+ 193 0044 00000000 		.word	port
+ 194 0048 00000000 		.word	clk
+ 195 004c 00000000 		.word	dio
+ 197              		.section	.text.stop,"ax",%progbits
+ 198              		.align	1
+ 199              		.syntax unified
+ 200              		.thumb
+ 201              		.thumb_func
+ 202              		.fpu softvfp
+ 204              	stop:
+ 205              		@ args = 0, pretend = 0, frame = 0
+ 206              		@ frame_needed = 1, uses_anonymous_args = 0
+ 207 0000 80B5     		push	{r7, lr}
+ 208 0002 00AF     		add	r7, sp, #0
+ 209 0004 1C4B     		ldr	r3, .L11
+ 210 0006 1A68     		ldr	r2, [r3]
+ 211 0008 1C4B     		ldr	r3, .L11+4
+ 212 000a 1B68     		ldr	r3, [r3]
+ 213 000c 1033     		adds	r3, r3, #16
+ 214 000e 0121     		movs	r1, #1
+ 215 0010 01FA03F3 		lsl	r3, r1, r3
+ 216 0014 1946     		mov	r1, r3
+ 217 0016 1046     		mov	r0, r2
+ 218 0018 FFF7FEFF 		bl	GPIO_IO
+ 219 001c 0220     		movs	r0, #2
+ 220 001e FFF7FEFF 		bl	delay
+ 221 0022 154B     		ldr	r3, .L11
+ 222 0024 1A68     		ldr	r2, [r3]
+ 223 0026 164B     		ldr	r3, .L11+8
+ 224 0028 1B68     		ldr	r3, [r3]
+ 225 002a 1033     		adds	r3, r3, #16
+ 226 002c 0121     		movs	r1, #1
+ 227 002e 01FA03F3 		lsl	r3, r1, r3
+ 228 0032 1946     		mov	r1, r3
+ 229 0034 1046     		mov	r0, r2
+ 230 0036 FFF7FEFF 		bl	GPIO_IO
+ 231 003a 0220     		movs	r0, #2
+ 232 003c FFF7FEFF 		bl	delay
+ 233 0040 0D4B     		ldr	r3, .L11
+ 234 0042 1A68     		ldr	r2, [r3]
+ 235 0044 0D4B     		ldr	r3, .L11+4
+ 236 0046 1B68     		ldr	r3, [r3]
+ 237 0048 0121     		movs	r1, #1
+ 238 004a 01FA03F3 		lsl	r3, r1, r3
+ 239 004e 1946     		mov	r1, r3
+ 240 0050 1046     		mov	r0, r2
+ 241 0052 FFF7FEFF 		bl	GPIO_IO
+ 242 0056 0220     		movs	r0, #2
+ARM GAS  /tmp/ccYKgTLR.s 			page 5
+
+
+ 243 0058 FFF7FEFF 		bl	delay
+ 244 005c 064B     		ldr	r3, .L11
+ 245 005e 1A68     		ldr	r2, [r3]
+ 246 0060 074B     		ldr	r3, .L11+8
+ 247 0062 1B68     		ldr	r3, [r3]
+ 248 0064 0121     		movs	r1, #1
+ 249 0066 01FA03F3 		lsl	r3, r1, r3
+ 250 006a 1946     		mov	r1, r3
+ 251 006c 1046     		mov	r0, r2
+ 252 006e FFF7FEFF 		bl	GPIO_IO
+ 253 0072 00BF     		nop
+ 254 0074 80BD     		pop	{r7, pc}
+ 255              	.L12:
+ 256 0076 00BF     		.align	2
+ 257              	.L11:
+ 258 0078 00000000 		.word	port
+ 259 007c 00000000 		.word	clk
+ 260 0080 00000000 		.word	dio
+ 262              		.section	.text.read,"ax",%progbits
+ 263              		.align	1
+ 264              		.syntax unified
+ 265              		.thumb
+ 266              		.thumb_func
+ 267              		.fpu softvfp
+ 269              	read:
+ 270              		@ args = 0, pretend = 0, frame = 0
+ 271              		@ frame_needed = 1, uses_anonymous_args = 0
+ 272 0000 80B5     		push	{r7, lr}
+ 273 0002 00AF     		add	r7, sp, #0
+ 274 0004 154B     		ldr	r3, .L14
+ 275 0006 1A68     		ldr	r2, [r3]
+ 276 0008 154B     		ldr	r3, .L14+4
+ 277 000a 1B68     		ldr	r3, [r3]
+ 278 000c 1033     		adds	r3, r3, #16
+ 279 000e 0121     		movs	r1, #1
+ 280 0010 01FA03F3 		lsl	r3, r1, r3
+ 281 0014 1946     		mov	r1, r3
+ 282 0016 1046     		mov	r0, r2
+ 283 0018 FFF7FEFF 		bl	GPIO_IO
+ 284 001c 0520     		movs	r0, #5
+ 285 001e FFF7FEFF 		bl	delay
+ 286 0022 0E4B     		ldr	r3, .L14
+ 287 0024 1A68     		ldr	r2, [r3]
+ 288 0026 0E4B     		ldr	r3, .L14+4
+ 289 0028 1B68     		ldr	r3, [r3]
+ 290 002a 0121     		movs	r1, #1
+ 291 002c 01FA03F3 		lsl	r3, r1, r3
+ 292 0030 1946     		mov	r1, r3
+ 293 0032 1046     		mov	r0, r2
+ 294 0034 FFF7FEFF 		bl	GPIO_IO
+ 295 0038 0220     		movs	r0, #2
+ 296 003a FFF7FEFF 		bl	delay
+ 297 003e 074B     		ldr	r3, .L14
+ 298 0040 1A68     		ldr	r2, [r3]
+ 299 0042 074B     		ldr	r3, .L14+4
+ 300 0044 1B68     		ldr	r3, [r3]
+ 301 0046 1033     		adds	r3, r3, #16
+ARM GAS  /tmp/ccYKgTLR.s 			page 6
+
+
+ 302 0048 0121     		movs	r1, #1
+ 303 004a 01FA03F3 		lsl	r3, r1, r3
+ 304 004e 1946     		mov	r1, r3
+ 305 0050 1046     		mov	r0, r2
+ 306 0052 FFF7FEFF 		bl	GPIO_IO
+ 307 0056 00BF     		nop
+ 308 0058 80BD     		pop	{r7, pc}
+ 309              	.L15:
+ 310 005a 00BF     		.align	2
+ 311              	.L14:
+ 312 005c 00000000 		.word	port
+ 313 0060 00000000 		.word	clk
+ 315              		.section	.text.write_byte,"ax",%progbits
+ 316              		.align	1
+ 317              		.syntax unified
+ 318              		.thumb
+ 319              		.thumb_func
+ 320              		.fpu softvfp
+ 322              	write_byte:
+ 323              		@ args = 0, pretend = 0, frame = 16
+ 324              		@ frame_needed = 1, uses_anonymous_args = 0
+ 325 0000 80B5     		push	{r7, lr}
+ 326 0002 84B0     		sub	sp, sp, #16
+ 327 0004 00AF     		add	r7, sp, #0
+ 328 0006 0346     		mov	r3, r0
+ 329 0008 FB71     		strb	r3, [r7, #7]
+ 330 000a 0023     		movs	r3, #0
+ 331 000c FB60     		str	r3, [r7, #12]
+ 332 000e 39E0     		b	.L17
+ 333              	.L20:
+ 334 0010 204B     		ldr	r3, .L21
+ 335 0012 1A68     		ldr	r2, [r3]
+ 336 0014 204B     		ldr	r3, .L21+4
+ 337 0016 1B68     		ldr	r3, [r3]
+ 338 0018 1033     		adds	r3, r3, #16
+ 339 001a 0121     		movs	r1, #1
+ 340 001c 01FA03F3 		lsl	r3, r1, r3
+ 341 0020 1946     		mov	r1, r3
+ 342 0022 1046     		mov	r0, r2
+ 343 0024 FFF7FEFF 		bl	GPIO_IO
+ 344 0028 1A4B     		ldr	r3, .L21
+ 345 002a 1A68     		ldr	r2, [r3]
+ 346 002c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 347 002e 03F00103 		and	r3, r3, #1
+ 348 0032 002B     		cmp	r3, #0
+ 349 0034 05D0     		beq	.L18
+ 350 0036 194B     		ldr	r3, .L21+8
+ 351 0038 1B68     		ldr	r3, [r3]
+ 352 003a 0121     		movs	r1, #1
+ 353 003c 01FA03F3 		lsl	r3, r1, r3
+ 354 0040 05E0     		b	.L19
+ 355              	.L18:
+ 356 0042 164B     		ldr	r3, .L21+8
+ 357 0044 1B68     		ldr	r3, [r3]
+ 358 0046 1033     		adds	r3, r3, #16
+ 359 0048 0121     		movs	r1, #1
+ 360 004a 01FA03F3 		lsl	r3, r1, r3
+ARM GAS  /tmp/ccYKgTLR.s 			page 7
+
+
+ 361              	.L19:
+ 362 004e 1946     		mov	r1, r3
+ 363 0050 1046     		mov	r0, r2
+ 364 0052 FFF7FEFF 		bl	GPIO_IO
+ 365 0056 0320     		movs	r0, #3
+ 366 0058 FFF7FEFF 		bl	delay
+ 367 005c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 368 005e 5B08     		lsrs	r3, r3, #1
+ 369 0060 FB71     		strb	r3, [r7, #7]
+ 370 0062 0C4B     		ldr	r3, .L21
+ 371 0064 1A68     		ldr	r2, [r3]
+ 372 0066 0C4B     		ldr	r3, .L21+4
+ 373 0068 1B68     		ldr	r3, [r3]
+ 374 006a 0121     		movs	r1, #1
+ 375 006c 01FA03F3 		lsl	r3, r1, r3
+ 376 0070 1946     		mov	r1, r3
+ 377 0072 1046     		mov	r0, r2
+ 378 0074 FFF7FEFF 		bl	GPIO_IO
+ 379 0078 0220     		movs	r0, #2
+ 380 007a FFF7FEFF 		bl	delay
+ 381 007e FB68     		ldr	r3, [r7, #12]
+ 382 0080 0133     		adds	r3, r3, #1
+ 383 0082 FB60     		str	r3, [r7, #12]
+ 384              	.L17:
+ 385 0084 FB68     		ldr	r3, [r7, #12]
+ 386 0086 072B     		cmp	r3, #7
+ 387 0088 C2DD     		ble	.L20
+ 388 008a 00BF     		nop
+ 389 008c 00BF     		nop
+ 390 008e 1037     		adds	r7, r7, #16
+ 391 0090 BD46     		mov	sp, r7
+ 392              		@ sp needed
+ 393 0092 80BD     		pop	{r7, pc}
+ 394              	.L22:
+ 395              		.align	2
+ 396              	.L21:
+ 397 0094 00000000 		.word	port
+ 398 0098 00000000 		.word	clk
+ 399 009c 00000000 		.word	dio
+ 401              		.section	.text.TM1637_Display,"ax",%progbits
+ 402              		.align	1
+ 403              		.global	TM1637_Display
+ 404              		.syntax unified
+ 405              		.thumb
+ 406              		.thumb_func
+ 407              		.fpu softvfp
+ 409              	TM1637_Display:
+ 410              		@ args = 0, pretend = 0, frame = 16
+ 411              		@ frame_needed = 1, uses_anonymous_args = 0
+ 412 0000 80B5     		push	{r7, lr}
+ 413 0002 84B0     		sub	sp, sp, #16
+ 414 0004 00AF     		add	r7, sp, #0
+ 415 0006 7860     		str	r0, [r7, #4]
+ 416 0008 0B46     		mov	r3, r1
+ 417 000a FB70     		strb	r3, [r7, #3]
+ 418 000c 1346     		mov	r3, r2
+ 419 000e BB70     		strb	r3, [r7, #2]
+ARM GAS  /tmp/ccYKgTLR.s 			page 8
+
+
+ 420 0010 BB78     		ldrb	r3, [r7, #2]
+ 421 0012 83F00103 		eor	r3, r3, #1
+ 422 0016 DBB2     		uxtb	r3, r3
+ 423 0018 002B     		cmp	r3, #0
+ 424 001a 13D0     		beq	.L24
+ 425 001c 0023     		movs	r3, #0
+ 426 001e FB60     		str	r3, [r7, #12]
+ 427 0020 0DE0     		b	.L25
+ 428              	.L26:
+ 429 0022 FB68     		ldr	r3, [r7, #12]
+ 430 0024 7A68     		ldr	r2, [r7, #4]
+ 431 0026 1344     		add	r3, r3, r2
+ 432 0028 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 433 002a FB68     		ldr	r3, [r7, #12]
+ 434 002c 7968     		ldr	r1, [r7, #4]
+ 435 002e 0B44     		add	r3, r3, r1
+ 436 0030 02F07F02 		and	r2, r2, #127
+ 437 0034 D2B2     		uxtb	r2, r2
+ 438 0036 1A70     		strb	r2, [r3]
+ 439 0038 FB68     		ldr	r3, [r7, #12]
+ 440 003a 0133     		adds	r3, r3, #1
+ 441 003c FB60     		str	r3, [r7, #12]
+ 442              	.L25:
+ 443 003e FB68     		ldr	r3, [r7, #12]
+ 444 0040 032B     		cmp	r3, #3
+ 445 0042 EEDD     		ble	.L26
+ 446              	.L24:
+ 447 0044 FFF7FEFF 		bl	start
+ 448 0048 4020     		movs	r0, #64
+ 449 004a FFF7FEFF 		bl	write_byte
+ 450 004e FFF7FEFF 		bl	read
+ 451 0052 FFF7FEFF 		bl	stop
+ 452 0056 FFF7FEFF 		bl	start
+ 453 005a C020     		movs	r0, #192
+ 454 005c FFF7FEFF 		bl	write_byte
+ 455 0060 FFF7FEFF 		bl	read
+ 456 0064 0023     		movs	r3, #0
+ 457 0066 BB60     		str	r3, [r7, #8]
+ 458 0068 0BE0     		b	.L27
+ 459              	.L28:
+ 460 006a BB68     		ldr	r3, [r7, #8]
+ 461 006c 7A68     		ldr	r2, [r7, #4]
+ 462 006e 1344     		add	r3, r3, r2
+ 463 0070 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 464 0072 1846     		mov	r0, r3
+ 465 0074 FFF7FEFF 		bl	write_byte
+ 466 0078 FFF7FEFF 		bl	read
+ 467 007c BB68     		ldr	r3, [r7, #8]
+ 468 007e 0133     		adds	r3, r3, #1
+ 469 0080 BB60     		str	r3, [r7, #8]
+ 470              	.L27:
+ 471 0082 BB68     		ldr	r3, [r7, #8]
+ 472 0084 032B     		cmp	r3, #3
+ 473 0086 F0DD     		ble	.L28
+ 474 0088 FFF7FEFF 		bl	stop
+ 475 008c FFF7FEFF 		bl	start
+ 476 0090 FB78     		ldrb	r3, [r7, #3]
+ARM GAS  /tmp/ccYKgTLR.s 			page 9
+
+
+ 477 0092 793B     		subs	r3, r3, #121
+ 478 0094 DBB2     		uxtb	r3, r3
+ 479 0096 1846     		mov	r0, r3
+ 480 0098 FFF7FEFF 		bl	write_byte
+ 481 009c FFF7FEFF 		bl	read
+ 482 00a0 FFF7FEFF 		bl	stop
+ 483 00a4 00BF     		nop
+ 484 00a6 1037     		adds	r7, r7, #16
+ 485 00a8 BD46     		mov	sp, r7
+ 486              		@ sp needed
+ 487 00aa 80BD     		pop	{r7, pc}
+ 489              		.section	.text.TM1637_DisplayUint16,"ax",%progbits
+ 490              		.align	1
+ 491              		.global	TM1637_DisplayUint16
+ 492              		.syntax unified
+ 493              		.thumb
+ 494              		.thumb_func
+ 495              		.fpu softvfp
+ 497              	TM1637_DisplayUint16:
+ 498              		@ args = 0, pretend = 0, frame = 16
+ 499              		@ frame_needed = 1, uses_anonymous_args = 0
+ 500 0000 80B5     		push	{r7, lr}
+ 501 0002 84B0     		sub	sp, sp, #16
+ 502 0004 00AF     		add	r7, sp, #0
+ 503 0006 0346     		mov	r3, r0
+ 504 0008 0A46     		mov	r2, r1
+ 505 000a FB80     		strh	r3, [r7, #6]	@ movhi
+ 506 000c 1346     		mov	r3, r2
+ 507 000e 7B71     		strb	r3, [r7, #5]
+ 508 0010 0323     		movs	r3, #3
+ 509 0012 FB60     		str	r3, [r7, #12]
+ 510 0014 10E0     		b	.L30
+ 511              	.L31:
+ 512 0016 FB88     		ldrh	r3, [r7, #6]
+ 513 0018 03F00F03 		and	r3, r3, #15
+ 514 001c 0D4A     		ldr	r2, .L32
+ 515 001e D15C     		ldrb	r1, [r2, r3]	@ zero_extendqisi2
+ 516 0020 07F10802 		add	r2, r7, #8
+ 517 0024 FB68     		ldr	r3, [r7, #12]
+ 518 0026 1344     		add	r3, r3, r2
+ 519 0028 0A46     		mov	r2, r1
+ 520 002a 1A70     		strb	r2, [r3]
+ 521 002c FB88     		ldrh	r3, [r7, #6]
+ 522 002e 1B09     		lsrs	r3, r3, #4
+ 523 0030 FB80     		strh	r3, [r7, #6]	@ movhi
+ 524 0032 FB68     		ldr	r3, [r7, #12]
+ 525 0034 013B     		subs	r3, r3, #1
+ 526 0036 FB60     		str	r3, [r7, #12]
+ 527              	.L30:
+ 528 0038 FB68     		ldr	r3, [r7, #12]
+ 529 003a 002B     		cmp	r3, #0
+ 530 003c EBDA     		bge	.L31
+ 531 003e 7979     		ldrb	r1, [r7, #5]	@ zero_extendqisi2
+ 532 0040 07F10803 		add	r3, r7, #8
+ 533 0044 0022     		movs	r2, #0
+ 534 0046 1846     		mov	r0, r3
+ 535 0048 FFF7FEFF 		bl	TM1637_Display
+ARM GAS  /tmp/ccYKgTLR.s 			page 10
+
+
+ 536 004c 00BF     		nop
+ 537 004e 1037     		adds	r7, r7, #16
+ 538 0050 BD46     		mov	sp, r7
+ 539              		@ sp needed
+ 540 0052 80BD     		pop	{r7, pc}
+ 541              	.L33:
+ 542              		.align	2
+ 543              	.L32:
+ 544 0054 00000000 		.word	TM1637_Digits
+ 546              		.section	.text.TM1637_DisplayInt8,"ax",%progbits
+ 547              		.align	1
+ 548              		.global	TM1637_DisplayInt8
+ 549              		.syntax unified
+ 550              		.thumb
+ 551              		.thumb_func
+ 552              		.fpu softvfp
+ 554              	TM1637_DisplayInt8:
+ 555              		@ args = 0, pretend = 0, frame = 16
+ 556              		@ frame_needed = 1, uses_anonymous_args = 0
+ 557 0000 80B5     		push	{r7, lr}
+ 558 0002 84B0     		sub	sp, sp, #16
+ 559 0004 00AF     		add	r7, sp, #0
+ 560 0006 0346     		mov	r3, r0
+ 561 0008 0A46     		mov	r2, r1
+ 562 000a FB71     		strb	r3, [r7, #7]
+ 563 000c 1346     		mov	r3, r2
+ 564 000e BB71     		strb	r3, [r7, #6]
+ 565 0010 97F90730 		ldrsb	r3, [r7, #7]
+ 566 0014 002B     		cmp	r3, #0
+ 567 0016 02DB     		blt	.L35
+ 568 0018 0023     		movs	r3, #0
+ 569 001a 3B73     		strb	r3, [r7, #12]
+ 570 001c 04E0     		b	.L36
+ 571              	.L35:
+ 572 001e 4023     		movs	r3, #64
+ 573 0020 3B73     		strb	r3, [r7, #12]
+ 574 0022 FB79     		ldrb	r3, [r7, #7]
+ 575 0024 5B42     		rsbs	r3, r3, #0
+ 576 0026 FB71     		strb	r3, [r7, #7]
+ 577              	.L36:
+ 578 0028 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 579 002a 1C4B     		ldr	r3, .L37
+ 580 002c A3FB0213 		umull	r1, r3, r3, r2
+ 581 0030 D908     		lsrs	r1, r3, #3
+ 582 0032 0B46     		mov	r3, r1
+ 583 0034 9B00     		lsls	r3, r3, #2
+ 584 0036 0B44     		add	r3, r3, r1
+ 585 0038 5B00     		lsls	r3, r3, #1
+ 586 003a D31A     		subs	r3, r2, r3
+ 587 003c DBB2     		uxtb	r3, r3
+ 588 003e 1A46     		mov	r2, r3
+ 589 0040 174B     		ldr	r3, .L37+4
+ 590 0042 9B5C     		ldrb	r3, [r3, r2]	@ zero_extendqisi2
+ 591 0044 FB73     		strb	r3, [r7, #15]
+ 592 0046 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 593 0048 144A     		ldr	r2, .L37
+ 594 004a A2FB0323 		umull	r2, r3, r2, r3
+ARM GAS  /tmp/ccYKgTLR.s 			page 11
+
+
+ 595 004e DB08     		lsrs	r3, r3, #3
+ 596 0050 FB71     		strb	r3, [r7, #7]
+ 597 0052 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 598 0054 114B     		ldr	r3, .L37
+ 599 0056 A3FB0213 		umull	r1, r3, r3, r2
+ 600 005a D908     		lsrs	r1, r3, #3
+ 601 005c 0B46     		mov	r3, r1
+ 602 005e 9B00     		lsls	r3, r3, #2
+ 603 0060 0B44     		add	r3, r3, r1
+ 604 0062 5B00     		lsls	r3, r3, #1
+ 605 0064 D31A     		subs	r3, r2, r3
+ 606 0066 DBB2     		uxtb	r3, r3
+ 607 0068 1A46     		mov	r2, r3
+ 608 006a 0D4B     		ldr	r3, .L37+4
+ 609 006c 9B5C     		ldrb	r3, [r3, r2]	@ zero_extendqisi2
+ 610 006e BB73     		strb	r3, [r7, #14]
+ 611 0070 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 612 0072 0A4A     		ldr	r2, .L37
+ 613 0074 A2FB0323 		umull	r2, r3, r2, r3
+ 614 0078 DB08     		lsrs	r3, r3, #3
+ 615 007a FB71     		strb	r3, [r7, #7]
+ 616 007c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 617 007e 084A     		ldr	r2, .L37+4
+ 618 0080 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 619 0082 7B73     		strb	r3, [r7, #13]
+ 620 0084 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ 621 0086 07F10C03 		add	r3, r7, #12
+ 622 008a 0022     		movs	r2, #0
+ 623 008c 1846     		mov	r0, r3
+ 624 008e FFF7FEFF 		bl	TM1637_Display
+ 625 0092 00BF     		nop
+ 626 0094 1037     		adds	r7, r7, #16
+ 627 0096 BD46     		mov	sp, r7
+ 628              		@ sp needed
+ 629 0098 80BD     		pop	{r7, pc}
+ 630              	.L38:
+ 631 009a 00BF     		.align	2
+ 632              	.L37:
+ 633 009c CDCCCCCC 		.word	-858993459
+ 634 00a0 00000000 		.word	TM1637_Digits
+ 636              		.section	.text.TM1637_Error,"ax",%progbits
+ 637              		.align	1
+ 638              		.global	TM1637_Error
+ 639              		.syntax unified
+ 640              		.thumb
+ 641              		.thumb_func
+ 642              		.fpu softvfp
+ 644              	TM1637_Error:
+ 645              		@ args = 0, pretend = 0, frame = 8
+ 646              		@ frame_needed = 1, uses_anonymous_args = 0
+ 647 0000 80B5     		push	{r7, lr}
+ 648 0002 82B0     		sub	sp, sp, #8
+ 649 0004 00AF     		add	r7, sp, #0
+ 650 0006 094B     		ldr	r3, .L40
+ 651 0008 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 652 000a 3B71     		strb	r3, [r7, #4]
+ 653 000c 5023     		movs	r3, #80
+ARM GAS  /tmp/ccYKgTLR.s 			page 12
+
+
+ 654 000e 7B71     		strb	r3, [r7, #5]
+ 655 0010 5023     		movs	r3, #80
+ 656 0012 BB71     		strb	r3, [r7, #6]
+ 657 0014 0023     		movs	r3, #0
+ 658 0016 FB71     		strb	r3, [r7, #7]
+ 659 0018 3B1D     		adds	r3, r7, #4
+ 660 001a 0022     		movs	r2, #0
+ 661 001c 0721     		movs	r1, #7
+ 662 001e 1846     		mov	r0, r3
+ 663 0020 FFF7FEFF 		bl	TM1637_Display
+ 664 0024 00BF     		nop
+ 665 0026 0837     		adds	r7, r7, #8
+ 666 0028 BD46     		mov	sp, r7
+ 667              		@ sp needed
+ 668 002a 80BD     		pop	{r7, pc}
+ 669              	.L41:
+ 670              		.align	2
+ 671              	.L40:
+ 672 002c 00000000 		.word	TM1637_Digits
+ 674              		.ident	"GCC: (Arch Repository) 9.1.0"
+ARM GAS  /tmp/ccYKgTLR.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 tm1637.c
+     /tmp/ccYKgTLR.s:14     .text.GPIO_IO:0000000000000000 $t
+     /tmp/ccYKgTLR.s:21     .text.GPIO_IO:0000000000000000 GPIO_IO
+     /tmp/ccYKgTLR.s:48     .data.TM1637_Digits:0000000000000000 TM1637_Digits
+     /tmp/ccYKgTLR.s:45     .data.TM1637_Digits:0000000000000000 $d
+     /tmp/ccYKgTLR.s:52     .bss.port:0000000000000000 $d
+     /tmp/ccYKgTLR.s:55     .bss.port:0000000000000000 port
+     /tmp/ccYKgTLR.s:58     .bss.clk:0000000000000000 $d
+     /tmp/ccYKgTLR.s:61     .bss.clk:0000000000000000 clk
+     /tmp/ccYKgTLR.s:64     .bss.dio:0000000000000000 $d
+     /tmp/ccYKgTLR.s:67     .bss.dio:0000000000000000 dio
+     /tmp/ccYKgTLR.s:70     .text.delay:0000000000000000 $t
+     /tmp/ccYKgTLR.s:76     .text.delay:0000000000000000 delay
+     /tmp/ccYKgTLR.s:100    .text.TM1637_Init:0000000000000000 $t
+     /tmp/ccYKgTLR.s:107    .text.TM1637_Init:0000000000000000 TM1637_Init
+     /tmp/ccYKgTLR.s:147    .text.TM1637_Init:0000000000000048 $d
+     /tmp/ccYKgTLR.s:152    .text.start:0000000000000000 $t
+     /tmp/ccYKgTLR.s:158    .text.start:0000000000000000 start
+     /tmp/ccYKgTLR.s:193    .text.start:0000000000000044 $d
+     /tmp/ccYKgTLR.s:198    .text.stop:0000000000000000 $t
+     /tmp/ccYKgTLR.s:204    .text.stop:0000000000000000 stop
+     /tmp/ccYKgTLR.s:258    .text.stop:0000000000000078 $d
+     /tmp/ccYKgTLR.s:263    .text.read:0000000000000000 $t
+     /tmp/ccYKgTLR.s:269    .text.read:0000000000000000 read
+     /tmp/ccYKgTLR.s:312    .text.read:000000000000005c $d
+     /tmp/ccYKgTLR.s:316    .text.write_byte:0000000000000000 $t
+     /tmp/ccYKgTLR.s:322    .text.write_byte:0000000000000000 write_byte
+     /tmp/ccYKgTLR.s:397    .text.write_byte:0000000000000094 $d
+     /tmp/ccYKgTLR.s:402    .text.TM1637_Display:0000000000000000 $t
+     /tmp/ccYKgTLR.s:409    .text.TM1637_Display:0000000000000000 TM1637_Display
+     /tmp/ccYKgTLR.s:490    .text.TM1637_DisplayUint16:0000000000000000 $t
+     /tmp/ccYKgTLR.s:497    .text.TM1637_DisplayUint16:0000000000000000 TM1637_DisplayUint16
+     /tmp/ccYKgTLR.s:544    .text.TM1637_DisplayUint16:0000000000000054 $d
+     /tmp/ccYKgTLR.s:547    .text.TM1637_DisplayInt8:0000000000000000 $t
+     /tmp/ccYKgTLR.s:554    .text.TM1637_DisplayInt8:0000000000000000 TM1637_DisplayInt8
+     /tmp/ccYKgTLR.s:633    .text.TM1637_DisplayInt8:000000000000009c $d
+     /tmp/ccYKgTLR.s:637    .text.TM1637_Error:0000000000000000 $t
+     /tmp/ccYKgTLR.s:644    .text.TM1637_Error:0000000000000000 TM1637_Error
+     /tmp/ccYKgTLR.s:672    .text.TM1637_Error:000000000000002c $d
+
+UNDEFINED SYMBOLS
+GPIO_ConfPin

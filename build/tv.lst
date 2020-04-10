@@ -1,0 +1,760 @@
+ARM GAS  /tmp/ccPOS8Ni.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"tv.c"
+  12              		.text
+  13              		.section	.text.NVIC_EnableIRQ,"ax",%progbits
+  14              		.align	1
+  15              		.arch armv7-m
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu softvfp
+  21              	NVIC_EnableIRQ:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 0346     		mov	r3, r0
+  29 0008 FB71     		strb	r3, [r7, #7]
+  30 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  31 000c 03F01F02 		and	r2, r3, #31
+  32 0010 0649     		ldr	r1, .L2
+  33 0012 97F90730 		ldrsb	r3, [r7, #7]
+  34 0016 5B09     		lsrs	r3, r3, #5
+  35 0018 0120     		movs	r0, #1
+  36 001a 00FA02F2 		lsl	r2, r0, r2
+  37 001e 41F82320 		str	r2, [r1, r3, lsl #2]
+  38 0022 00BF     		nop
+  39 0024 0C37     		adds	r7, r7, #12
+  40 0026 BD46     		mov	sp, r7
+  41              		@ sp needed
+  42 0028 80BC     		pop	{r7}
+  43 002a 7047     		bx	lr
+  44              	.L3:
+  45              		.align	2
+  46              	.L2:
+  47 002c 00E100E0 		.word	-536813312
+  49              		.section	.text.GPIO_Init,"ax",%progbits
+  50              		.align	1
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  54              		.fpu softvfp
+  56              	GPIO_Init:
+  57              		@ args = 0, pretend = 0, frame = 8
+  58              		@ frame_needed = 1, uses_anonymous_args = 0
+  59              		@ link register save eliminated.
+  60 0000 80B4     		push	{r7}
+ARM GAS  /tmp/ccPOS8Ni.s 			page 2
+
+
+  61 0002 83B0     		sub	sp, sp, #12
+  62 0004 00AF     		add	r7, sp, #0
+  63 0006 0346     		mov	r3, r0
+  64 0008 FB71     		strb	r3, [r7, #7]
+  65 000a 054B     		ldr	r3, .L5
+  66 000c 9A69     		ldr	r2, [r3, #24]
+  67 000e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  68 0010 0349     		ldr	r1, .L5
+  69 0012 1343     		orrs	r3, r3, r2
+  70 0014 8B61     		str	r3, [r1, #24]
+  71 0016 00BF     		nop
+  72 0018 0C37     		adds	r7, r7, #12
+  73 001a BD46     		mov	sp, r7
+  74              		@ sp needed
+  75 001c 80BC     		pop	{r7}
+  76 001e 7047     		bx	lr
+  77              	.L6:
+  78              		.align	2
+  79              	.L5:
+  80 0020 00100240 		.word	1073876992
+  82              		.comm	TV,9356,4
+  83              		.section	.data.syncTimings,"aw"
+  84              		.align	2
+  87              	syncTimings:
+  88 0000 0500     		.short	5
+  89 0002 AD07     		.short	1965
+  90 0004 FF08     		.short	2303
+  91 0006 0500     		.short	5
+  92 0008 A900     		.short	169
+  93 000a FF08     		.short	2303
+  94 000c 3101     		.short	305
+  95 000e 5201     		.short	338
+  96 0010 FF11     		.short	4607
+  97 0012 0500     		.short	5
+  98 0014 A900     		.short	169
+  99 0016 FF08     		.short	2303
+ 100 0018 0500     		.short	5
+ 101 001a AD07     		.short	1965
+ 102 001c FF08     		.short	2303
+ 103 001e 0400     		.short	4
+ 104 0020 A900     		.short	169
+ 105 0022 FF08     		.short	2303
+ 106 0024 0100     		.short	1
+ 107 0026 A900     		.short	169
+ 108 0028 FF11     		.short	4607
+ 109 002a 3001     		.short	304
+ 110 002c 5201     		.short	338
+ 111 002e FF11     		.short	4607
+ 112 0030 0100     		.short	1
+ 113 0032 5201     		.short	338
+ 114 0034 FF08     		.short	2303
+ 115 0036 0500     		.short	5
+ 116 0038 A900     		.short	169
+ 117 003a FF08     		.short	2303
+ 118              		.section	.text.ConfigGPIO,"ax",%progbits
+ 119              		.align	1
+ 120              		.syntax unified
+ARM GAS  /tmp/ccPOS8Ni.s 			page 3
+
+
+ 121              		.thumb
+ 122              		.thumb_func
+ 123              		.fpu softvfp
+ 125              	ConfigGPIO:
+ 126              		@ args = 0, pretend = 0, frame = 0
+ 127              		@ frame_needed = 1, uses_anonymous_args = 0
+ 128 0000 80B5     		push	{r7, lr}
+ 129 0002 00AF     		add	r7, sp, #0
+ 130 0004 0420     		movs	r0, #4
+ 131 0006 FFF7FEFF 		bl	GPIO_Init
+ 132 000a 0B22     		movs	r2, #11
+ 133 000c 0321     		movs	r1, #3
+ 134 000e 0548     		ldr	r0, .L8
+ 135 0010 FFF7FEFF 		bl	GPIO_ConfPin
+ 136 0014 0B22     		movs	r2, #11
+ 137 0016 0721     		movs	r1, #7
+ 138 0018 0248     		ldr	r0, .L8
+ 139 001a FFF7FEFF 		bl	GPIO_ConfPin
+ 140 001e 00BF     		nop
+ 141 0020 80BD     		pop	{r7, pc}
+ 142              	.L9:
+ 143 0022 00BF     		.align	2
+ 144              	.L8:
+ 145 0024 00080140 		.word	1073809408
+ 147              		.section	.text.ConfigDMA,"ax",%progbits
+ 148              		.align	1
+ 149              		.syntax unified
+ 150              		.thumb
+ 151              		.thumb_func
+ 152              		.fpu softvfp
+ 154              	ConfigDMA:
+ 155              		@ args = 0, pretend = 0, frame = 0
+ 156              		@ frame_needed = 1, uses_anonymous_args = 0
+ 157 0000 80B5     		push	{r7, lr}
+ 158 0002 00AF     		add	r7, sp, #0
+ 159 0004 114B     		ldr	r3, .L11
+ 160 0006 5B69     		ldr	r3, [r3, #20]
+ 161 0008 104A     		ldr	r2, .L11
+ 162 000a 43F00103 		orr	r3, r3, #1
+ 163 000e 5361     		str	r3, [r2, #20]
+ 164 0010 0D20     		movs	r0, #13
+ 165 0012 FFF7FEFF 		bl	NVIC_EnableIRQ
+ 166 0016 0E4B     		ldr	r3, .L11+4
+ 167 0018 0E4A     		ldr	r2, .L11+8
+ 168 001a 9A60     		str	r2, [r3, #8]
+ 169 001c 0C4B     		ldr	r3, .L11+4
+ 170 001e 0E4A     		ldr	r2, .L11+12
+ 171 0020 DA60     		str	r2, [r3, #12]
+ 172 0022 0B4B     		ldr	r3, .L11+4
+ 173 0024 2922     		movs	r2, #41
+ 174 0026 5A60     		str	r2, [r3, #4]
+ 175 0028 094B     		ldr	r3, .L11+4
+ 176 002a 0022     		movs	r2, #0
+ 177 002c 1A60     		str	r2, [r3]
+ 178 002e 084B     		ldr	r3, .L11+4
+ 179 0030 1B68     		ldr	r3, [r3]
+ 180 0032 074A     		ldr	r2, .L11+4
+ARM GAS  /tmp/ccPOS8Ni.s 			page 4
+
+
+ 181 0034 43F09203 		orr	r3, r3, #146
+ 182 0038 1360     		str	r3, [r2]
+ 183 003a 054B     		ldr	r3, .L11+4
+ 184 003c 1B68     		ldr	r3, [r3]
+ 185 003e 044A     		ldr	r2, .L11+4
+ 186 0040 43F44053 		orr	r3, r3, #12288
+ 187 0044 1360     		str	r3, [r2]
+ 188 0046 00BF     		nop
+ 189 0048 80BD     		pop	{r7, pc}
+ 190              	.L12:
+ 191 004a 00BF     		.align	2
+ 192              	.L11:
+ 193 004c 00100240 		.word	1073876992
+ 194 0050 30000240 		.word	1073872944
+ 195 0054 0C300140 		.word	1073819660
+ 196 0058 08000000 		.word	TV+8
+ 198              		.section	.text.ReloadDMA,"ax",%progbits
+ 199              		.align	1
+ 200              		.syntax unified
+ 201              		.thumb
+ 202              		.thumb_func
+ 203              		.fpu softvfp
+ 205              	ReloadDMA:
+ 206              		@ args = 0, pretend = 0, frame = 0
+ 207              		@ frame_needed = 1, uses_anonymous_args = 0
+ 208              		@ link register save eliminated.
+ 209 0000 80B4     		push	{r7}
+ 210 0002 00AF     		add	r7, sp, #0
+ 211 0004 0F4B     		ldr	r3, .L15
+ 212 0006 1A68     		ldr	r2, [r3]
+ 213 0008 1346     		mov	r3, r2
+ 214 000a 9B00     		lsls	r3, r3, #2
+ 215 000c 1344     		add	r3, r3, r2
+ 216 000e DB00     		lsls	r3, r3, #3
+ 217 0010 1344     		add	r3, r3, r2
+ 218 0012 0833     		adds	r3, r3, #8
+ 219 0014 0C4A     		ldr	r2, .L15+4
+ 220 0016 1A44     		add	r2, r2, r3
+ 221 0018 0C4B     		ldr	r3, .L15+8
+ 222 001a DA60     		str	r2, [r3, #12]
+ 223 001c 094B     		ldr	r3, .L15
+ 224 001e 1B68     		ldr	r3, [r3]
+ 225 0020 0133     		adds	r3, r3, #1
+ 226 0022 084A     		ldr	r2, .L15
+ 227 0024 1360     		str	r3, [r2]
+ 228 0026 074B     		ldr	r3, .L15
+ 229 0028 1B68     		ldr	r3, [r3]
+ 230 002a E42B     		cmp	r3, #228
+ 231 002c 02D1     		bne	.L14
+ 232 002e 054B     		ldr	r3, .L15
+ 233 0030 0022     		movs	r2, #0
+ 234 0032 1A60     		str	r2, [r3]
+ 235              	.L14:
+ 236 0034 054B     		ldr	r3, .L15+8
+ 237 0036 2922     		movs	r2, #41
+ 238 0038 5A60     		str	r2, [r3, #4]
+ 239 003a 00BF     		nop
+ARM GAS  /tmp/ccPOS8Ni.s 			page 5
+
+
+ 240 003c BD46     		mov	sp, r7
+ 241              		@ sp needed
+ 242 003e 80BC     		pop	{r7}
+ 243 0040 7047     		bx	lr
+ 244              	.L16:
+ 245 0042 00BF     		.align	2
+ 246              	.L15:
+ 247 0044 00000000 		.word	count.5096
+ 248 0048 00000000 		.word	TV
+ 249 004c 30000240 		.word	1073872944
+ 251              		.section	.text.ConfigSPI,"ax",%progbits
+ 252              		.align	1
+ 253              		.syntax unified
+ 254              		.thumb
+ 255              		.thumb_func
+ 256              		.fpu softvfp
+ 258              	ConfigSPI:
+ 259              		@ args = 0, pretend = 0, frame = 0
+ 260              		@ frame_needed = 1, uses_anonymous_args = 0
+ 261              		@ link register save eliminated.
+ 262 0000 80B4     		push	{r7}
+ 263 0002 00AF     		add	r7, sp, #0
+ 264 0004 134B     		ldr	r3, .L18
+ 265 0006 9B69     		ldr	r3, [r3, #24]
+ 266 0008 124A     		ldr	r2, .L18
+ 267 000a 43F48053 		orr	r3, r3, #4096
+ 268 000e 9361     		str	r3, [r2, #24]
+ 269 0010 114B     		ldr	r3, .L18+4
+ 270 0012 1B68     		ldr	r3, [r3]
+ 271 0014 104A     		ldr	r2, .L18+4
+ 272 0016 43F01003 		orr	r3, r3, #16
+ 273 001a 1360     		str	r3, [r2]
+ 274 001c 0E4B     		ldr	r3, .L18+4
+ 275 001e 1B68     		ldr	r3, [r3]
+ 276 0020 0D4A     		ldr	r2, .L18+4
+ 277 0022 43F44073 		orr	r3, r3, #768
+ 278 0026 1360     		str	r3, [r2]
+ 279 0028 0B4B     		ldr	r3, .L18+4
+ 280 002a 1B68     		ldr	r3, [r3]
+ 281 002c 0A4A     		ldr	r2, .L18+4
+ 282 002e 43F00403 		orr	r3, r3, #4
+ 283 0032 1360     		str	r3, [r2]
+ 284 0034 084B     		ldr	r3, .L18+4
+ 285 0036 5B68     		ldr	r3, [r3, #4]
+ 286 0038 074A     		ldr	r2, .L18+4
+ 287 003a 43F00203 		orr	r3, r3, #2
+ 288 003e 5360     		str	r3, [r2, #4]
+ 289 0040 054B     		ldr	r3, .L18+4
+ 290 0042 1B68     		ldr	r3, [r3]
+ 291 0044 044A     		ldr	r2, .L18+4
+ 292 0046 43F04003 		orr	r3, r3, #64
+ 293 004a 1360     		str	r3, [r2]
+ 294 004c 00BF     		nop
+ 295 004e BD46     		mov	sp, r7
+ 296              		@ sp needed
+ 297 0050 80BC     		pop	{r7}
+ 298 0052 7047     		bx	lr
+ARM GAS  /tmp/ccPOS8Ni.s 			page 6
+
+
+ 299              	.L19:
+ 300              		.align	2
+ 301              	.L18:
+ 302 0054 00100240 		.word	1073876992
+ 303 0058 00300140 		.word	1073819648
+ 305              		.section	.text.ConfigTimers,"ax",%progbits
+ 306              		.align	1
+ 307              		.syntax unified
+ 308              		.thumb
+ 309              		.thumb_func
+ 310              		.fpu softvfp
+ 312              	ConfigTimers:
+ 313              		@ args = 0, pretend = 0, frame = 0
+ 314              		@ frame_needed = 1, uses_anonymous_args = 0
+ 315 0000 80B5     		push	{r7, lr}
+ 316 0002 00AF     		add	r7, sp, #0
+ 317 0004 1C20     		movs	r0, #28
+ 318 0006 FFF7FEFF 		bl	NVIC_EnableIRQ
+ 319 000a 2E4B     		ldr	r3, .L21
+ 320 000c DB69     		ldr	r3, [r3, #28]
+ 321 000e 2D4A     		ldr	r2, .L21
+ 322 0010 43F00103 		orr	r3, r3, #1
+ 323 0014 D361     		str	r3, [r2, #28]
+ 324 0016 2B4B     		ldr	r3, .L21
+ 325 0018 DB69     		ldr	r3, [r3, #28]
+ 326 001a 2A4A     		ldr	r2, .L21
+ 327 001c 43F00103 		orr	r3, r3, #1
+ 328 0020 D361     		str	r3, [r2, #28]
+ 329 0022 4FF08043 		mov	r3, #1073741824
+ 330 0026 0022     		movs	r2, #0
+ 331 0028 9A62     		str	r2, [r3, #40]
+ 332 002a 274B     		ldr	r3, .L21+4
+ 333 002c 5A68     		ldr	r2, [r3, #4]
+ 334 002e 2749     		ldr	r1, .L21+8
+ 335 0030 1346     		mov	r3, r2
+ 336 0032 5B00     		lsls	r3, r3, #1
+ 337 0034 1344     		add	r3, r3, r2
+ 338 0036 5B00     		lsls	r3, r3, #1
+ 339 0038 0B44     		add	r3, r3, r1
+ 340 003a 0433     		adds	r3, r3, #4
+ 341 003c 1A88     		ldrh	r2, [r3]
+ 342 003e 4FF08043 		mov	r3, #1073741824
+ 343 0042 DA62     		str	r2, [r3, #44]
+ 344 0044 4FF08043 		mov	r3, #1073741824
+ 345 0048 0022     		movs	r2, #0
+ 346 004a 5A62     		str	r2, [r3, #36]
+ 347 004c 4FF08043 		mov	r3, #1073741824
+ 348 0050 DB69     		ldr	r3, [r3, #28]
+ 349 0052 4FF08042 		mov	r2, #1073741824
+ 350 0056 43F4E043 		orr	r3, r3, #28672
+ 351 005a D361     		str	r3, [r2, #28]
+ 352 005c 4FF08043 		mov	r3, #1073741824
+ 353 0060 DB69     		ldr	r3, [r3, #28]
+ 354 0062 4FF08042 		mov	r2, #1073741824
+ 355 0066 43F40063 		orr	r3, r3, #2048
+ 356 006a D361     		str	r3, [r2, #28]
+ 357 006c 164B     		ldr	r3, .L21+4
+ARM GAS  /tmp/ccPOS8Ni.s 			page 7
+
+
+ 358 006e 5A68     		ldr	r2, [r3, #4]
+ 359 0070 1649     		ldr	r1, .L21+8
+ 360 0072 1346     		mov	r3, r2
+ 361 0074 5B00     		lsls	r3, r3, #1
+ 362 0076 1344     		add	r3, r3, r2
+ 363 0078 5B00     		lsls	r3, r3, #1
+ 364 007a 0B44     		add	r3, r3, r1
+ 365 007c 0233     		adds	r3, r3, #2
+ 366 007e 1A88     		ldrh	r2, [r3]
+ 367 0080 4FF08043 		mov	r3, #1073741824
+ 368 0084 1A64     		str	r2, [r3, #64]
+ 369 0086 4FF08043 		mov	r3, #1073741824
+ 370 008a 4FF6FF72 		movw	r2, #65535
+ 371 008e DA63     		str	r2, [r3, #60]
+ 372 0090 4FF08043 		mov	r3, #1073741824
+ 373 0094 1B6A     		ldr	r3, [r3, #32]
+ 374 0096 4FF08042 		mov	r2, #1073741824
+ 375 009a 43F48853 		orr	r3, r3, #4352
+ 376 009e 1362     		str	r3, [r2, #32]
+ 377 00a0 4FF08043 		mov	r3, #1073741824
+ 378 00a4 DB68     		ldr	r3, [r3, #12]
+ 379 00a6 4FF08042 		mov	r2, #1073741824
+ 380 00aa 43F01803 		orr	r3, r3, #24
+ 381 00ae D360     		str	r3, [r2, #12]
+ 382 00b0 4FF08043 		mov	r3, #1073741824
+ 383 00b4 1B68     		ldr	r3, [r3]
+ 384 00b6 4FF08042 		mov	r2, #1073741824
+ 385 00ba 43F08003 		orr	r3, r3, #128
+ 386 00be 1360     		str	r3, [r2]
+ 387 00c0 00BF     		nop
+ 388 00c2 80BD     		pop	{r7, pc}
+ 389              	.L22:
+ 390              		.align	2
+ 391              	.L21:
+ 392 00c4 00100240 		.word	1073876992
+ 393 00c8 00000000 		.word	TV
+ 394 00cc 00000000 		.word	syncTimings
+ 396              		.section	.text.TIM2_IRQHandler,"ax",%progbits
+ 397              		.align	1
+ 398              		.global	TIM2_IRQHandler
+ 399              		.syntax unified
+ 400              		.thumb
+ 401              		.thumb_func
+ 402              		.fpu softvfp
+ 404              	TIM2_IRQHandler:
+ 405              		@ args = 0, pretend = 0, frame = 0
+ 406              		@ frame_needed = 1, uses_anonymous_args = 0
+ 407              		@ link register save eliminated.
+ 408 0000 80B4     		push	{r7}
+ 409 0002 00AF     		add	r7, sp, #0
+ 410 0004 4FF08043 		mov	r3, #1073741824
+ 411 0008 1B69     		ldr	r3, [r3, #16]
+ 412 000a 03F01003 		and	r3, r3, #16
+ 413 000e 002B     		cmp	r3, #0
+ 414 0010 5CD0     		beq	.L24
+ 415 0012 4FF08043 		mov	r3, #1073741824
+ 416 0016 1B69     		ldr	r3, [r3, #16]
+ARM GAS  /tmp/ccPOS8Ni.s 			page 8
+
+
+ 417 0018 4FF08042 		mov	r2, #1073741824
+ 418 001c 23F01003 		bic	r3, r3, #16
+ 419 0020 1361     		str	r3, [r2, #16]
+ 420 0022 354B     		ldr	r3, .L30
+ 421 0024 1B68     		ldr	r3, [r3]
+ 422 0026 0133     		adds	r3, r3, #1
+ 423 0028 334A     		ldr	r2, .L30
+ 424 002a 1360     		str	r3, [r2]
+ 425 002c 324B     		ldr	r3, .L30
+ 426 002e 1968     		ldr	r1, [r3]
+ 427 0030 314B     		ldr	r3, .L30
+ 428 0032 5A68     		ldr	r2, [r3, #4]
+ 429 0034 3148     		ldr	r0, .L30+4
+ 430 0036 1346     		mov	r3, r2
+ 431 0038 5B00     		lsls	r3, r3, #1
+ 432 003a 1344     		add	r3, r3, r2
+ 433 003c 5B00     		lsls	r3, r3, #1
+ 434 003e 0344     		add	r3, r3, r0
+ 435 0040 1B88     		ldrh	r3, [r3]
+ 436 0042 9942     		cmp	r1, r3
+ 437 0044 28D1     		bne	.L25
+ 438 0046 2C4B     		ldr	r3, .L30
+ 439 0048 5B68     		ldr	r3, [r3, #4]
+ 440 004a 0133     		adds	r3, r3, #1
+ 441 004c 2A4A     		ldr	r2, .L30
+ 442 004e 5360     		str	r3, [r2, #4]
+ 443 0050 294B     		ldr	r3, .L30
+ 444 0052 0022     		movs	r2, #0
+ 445 0054 1A60     		str	r2, [r3]
+ 446 0056 284B     		ldr	r3, .L30
+ 447 0058 5B68     		ldr	r3, [r3, #4]
+ 448 005a 092B     		cmp	r3, #9
+ 449 005c 02DD     		ble	.L26
+ 450 005e 264B     		ldr	r3, .L30
+ 451 0060 0022     		movs	r2, #0
+ 452 0062 5A60     		str	r2, [r3, #4]
+ 453              	.L26:
+ 454 0064 244B     		ldr	r3, .L30
+ 455 0066 5A68     		ldr	r2, [r3, #4]
+ 456 0068 2449     		ldr	r1, .L30+4
+ 457 006a 1346     		mov	r3, r2
+ 458 006c 5B00     		lsls	r3, r3, #1
+ 459 006e 1344     		add	r3, r3, r2
+ 460 0070 5B00     		lsls	r3, r3, #1
+ 461 0072 0B44     		add	r3, r3, r1
+ 462 0074 0433     		adds	r3, r3, #4
+ 463 0076 1A88     		ldrh	r2, [r3]
+ 464 0078 4FF08043 		mov	r3, #1073741824
+ 465 007c DA62     		str	r2, [r3, #44]
+ 466 007e 1E4B     		ldr	r3, .L30
+ 467 0080 5A68     		ldr	r2, [r3, #4]
+ 468 0082 1E49     		ldr	r1, .L30+4
+ 469 0084 1346     		mov	r3, r2
+ 470 0086 5B00     		lsls	r3, r3, #1
+ 471 0088 1344     		add	r3, r3, r2
+ 472 008a 5B00     		lsls	r3, r3, #1
+ 473 008c 0B44     		add	r3, r3, r1
+ARM GAS  /tmp/ccPOS8Ni.s 			page 9
+
+
+ 474 008e 0233     		adds	r3, r3, #2
+ 475 0090 1A88     		ldrh	r2, [r3]
+ 476 0092 4FF08043 		mov	r3, #1073741824
+ 477 0096 1A64     		str	r2, [r3, #64]
+ 478              	.L25:
+ 479 0098 174B     		ldr	r3, .L30
+ 480 009a 1B68     		ldr	r3, [r3]
+ 481 009c 1E2B     		cmp	r3, #30
+ 482 009e 07D1     		bne	.L27
+ 483 00a0 4FF08043 		mov	r3, #1073741824
+ 484 00a4 40F26342 		movw	r2, #1123
+ 485 00a8 DA63     		str	r2, [r3, #60]
+ 486 00aa 154B     		ldr	r3, .L30+8
+ 487 00ac 0122     		movs	r2, #1
+ 488 00ae 1A70     		strb	r2, [r3]
+ 489              	.L27:
+ 490 00b0 114B     		ldr	r3, .L30
+ 491 00b2 1B68     		ldr	r3, [r3]
+ 492 00b4 B3F5817F 		cmp	r3, #258
+ 493 00b8 1AD1     		bne	.L29
+ 494 00ba 4FF08043 		mov	r3, #1073741824
+ 495 00be 4FF6FF72 		movw	r2, #65535
+ 496 00c2 DA63     		str	r2, [r3, #60]
+ 497 00c4 0E4B     		ldr	r3, .L30+8
+ 498 00c6 0022     		movs	r2, #0
+ 499 00c8 1A70     		strb	r2, [r3]
+ 500 00ca 11E0     		b	.L29
+ 501              	.L24:
+ 502 00cc 4FF08043 		mov	r3, #1073741824
+ 503 00d0 1B69     		ldr	r3, [r3, #16]
+ 504 00d2 4FF08042 		mov	r2, #1073741824
+ 505 00d6 23F00803 		bic	r3, r3, #8
+ 506 00da 1361     		str	r3, [r2, #16]
+ 507 00dc 084B     		ldr	r3, .L30+8
+ 508 00de 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 509 00e0 002B     		cmp	r3, #0
+ 510 00e2 05D0     		beq	.L29
+ 511 00e4 074B     		ldr	r3, .L30+12
+ 512 00e6 1B68     		ldr	r3, [r3]
+ 513 00e8 064A     		ldr	r2, .L30+12
+ 514 00ea 43F00103 		orr	r3, r3, #1
+ 515 00ee 1360     		str	r3, [r2]
+ 516              	.L29:
+ 517 00f0 00BF     		nop
+ 518 00f2 BD46     		mov	sp, r7
+ 519              		@ sp needed
+ 520 00f4 80BC     		pop	{r7}
+ 521 00f6 7047     		bx	lr
+ 522              	.L31:
+ 523              		.align	2
+ 524              	.L30:
+ 525 00f8 00000000 		.word	TV
+ 526 00fc 00000000 		.word	syncTimings
+ 527 0100 00000000 		.word	working.5103
+ 528 0104 30000240 		.word	1073872944
+ 530              		.section	.text.DMA1_Channel3_IRQHandler,"ax",%progbits
+ 531              		.align	1
+ARM GAS  /tmp/ccPOS8Ni.s 			page 10
+
+
+ 532              		.global	DMA1_Channel3_IRQHandler
+ 533              		.syntax unified
+ 534              		.thumb
+ 535              		.thumb_func
+ 536              		.fpu softvfp
+ 538              	DMA1_Channel3_IRQHandler:
+ 539              		@ args = 0, pretend = 0, frame = 0
+ 540              		@ frame_needed = 1, uses_anonymous_args = 0
+ 541 0000 80B5     		push	{r7, lr}
+ 542 0002 00AF     		add	r7, sp, #0
+ 543 0004 00BF     		nop
+ 544              	.L33:
+ 545 0006 0B4B     		ldr	r3, .L34
+ 546 0008 9B68     		ldr	r3, [r3, #8]
+ 547 000a 03F08003 		and	r3, r3, #128
+ 548 000e 002B     		cmp	r3, #0
+ 549 0010 F9D1     		bne	.L33
+ 550 0012 094B     		ldr	r3, .L34+4
+ 551 0014 1B68     		ldr	r3, [r3]
+ 552 0016 084A     		ldr	r2, .L34+4
+ 553 0018 23F00103 		bic	r3, r3, #1
+ 554 001c 1360     		str	r3, [r2]
+ 555 001e 074B     		ldr	r3, .L34+8
+ 556 0020 5B68     		ldr	r3, [r3, #4]
+ 557 0022 064A     		ldr	r2, .L34+8
+ 558 0024 43F40073 		orr	r3, r3, #512
+ 559 0028 5360     		str	r3, [r2, #4]
+ 560 002a FFF7FEFF 		bl	ReloadDMA
+ 561 002e 00BF     		nop
+ 562 0030 80BD     		pop	{r7, pc}
+ 563              	.L35:
+ 564 0032 00BF     		.align	2
+ 565              	.L34:
+ 566 0034 00300140 		.word	1073819648
+ 567 0038 30000240 		.word	1073872944
+ 568 003c 00000240 		.word	1073872896
+ 570              		.section	.text.TV_Init,"ax",%progbits
+ 571              		.align	1
+ 572              		.global	TV_Init
+ 573              		.syntax unified
+ 574              		.thumb
+ 575              		.thumb_func
+ 576              		.fpu softvfp
+ 578              	TV_Init:
+ 579              		@ args = 0, pretend = 0, frame = 0
+ 580              		@ frame_needed = 1, uses_anonymous_args = 0
+ 581 0000 80B5     		push	{r7, lr}
+ 582 0002 00AF     		add	r7, sp, #0
+ 583 0004 0C4B     		ldr	r3, .L37
+ 584 0006 0022     		movs	r2, #0
+ 585 0008 1A60     		str	r2, [r3]
+ 586 000a 0B4B     		ldr	r3, .L37
+ 587 000c 0022     		movs	r2, #0
+ 588 000e 5A60     		str	r2, [r3, #4]
+ 589 0010 FFF7FEFF 		bl	ConfigGPIO
+ 590 0014 FFF7FEFF 		bl	ConfigDMA
+ 591 0018 FFF7FEFF 		bl	ReloadDMA
+ARM GAS  /tmp/ccPOS8Ni.s 			page 11
+
+
+ 592 001c FFF7FEFF 		bl	ConfigSPI
+ 593 0020 FFF7FEFF 		bl	ConfigTimers
+ 594 0024 4FF08043 		mov	r3, #1073741824
+ 595 0028 1B68     		ldr	r3, [r3]
+ 596 002a 4FF08042 		mov	r2, #1073741824
+ 597 002e 43F00103 		orr	r3, r3, #1
+ 598 0032 1360     		str	r3, [r2]
+ 599 0034 00BF     		nop
+ 600 0036 80BD     		pop	{r7, pc}
+ 601              	.L38:
+ 602              		.align	2
+ 603              	.L37:
+ 604 0038 00000000 		.word	TV
+ 606              		.section	.text.TV_Stop,"ax",%progbits
+ 607              		.align	1
+ 608              		.global	TV_Stop
+ 609              		.syntax unified
+ 610              		.thumb
+ 611              		.thumb_func
+ 612              		.fpu softvfp
+ 614              	TV_Stop:
+ 615              		@ args = 0, pretend = 0, frame = 0
+ 616              		@ frame_needed = 1, uses_anonymous_args = 0
+ 617              		@ link register save eliminated.
+ 618 0000 80B4     		push	{r7}
+ 619 0002 00AF     		add	r7, sp, #0
+ 620 0004 4FF08043 		mov	r3, #1073741824
+ 621 0008 1B68     		ldr	r3, [r3]
+ 622 000a 4FF08042 		mov	r2, #1073741824
+ 623 000e 23F00103 		bic	r3, r3, #1
+ 624 0012 1360     		str	r3, [r2]
+ 625 0014 00BF     		nop
+ 626 0016 BD46     		mov	sp, r7
+ 627              		@ sp needed
+ 628 0018 80BC     		pop	{r7}
+ 629 001a 7047     		bx	lr
+ 631              		.section	.text.TV_ClearScreen,"ax",%progbits
+ 632              		.align	1
+ 633              		.global	TV_ClearScreen
+ 634              		.syntax unified
+ 635              		.thumb
+ 636              		.thumb_func
+ 637              		.fpu softvfp
+ 639              	TV_ClearScreen:
+ 640              		@ args = 0, pretend = 0, frame = 8
+ 641              		@ frame_needed = 1, uses_anonymous_args = 0
+ 642              		@ link register save eliminated.
+ 643 0000 80B4     		push	{r7}
+ 644 0002 83B0     		sub	sp, sp, #12
+ 645 0004 00AF     		add	r7, sp, #0
+ 646 0006 0023     		movs	r3, #0
+ 647 0008 7B60     		str	r3, [r7, #4]
+ 648 000a 18E0     		b	.L41
+ 649              	.L44:
+ 650 000c 0023     		movs	r3, #0
+ 651 000e 3B60     		str	r3, [r7]
+ 652 0010 0FE0     		b	.L42
+ARM GAS  /tmp/ccPOS8Ni.s 			page 12
+
+
+ 653              	.L43:
+ 654 0012 0F49     		ldr	r1, .L45
+ 655 0014 7A68     		ldr	r2, [r7, #4]
+ 656 0016 1346     		mov	r3, r2
+ 657 0018 9B00     		lsls	r3, r3, #2
+ 658 001a 1344     		add	r3, r3, r2
+ 659 001c DB00     		lsls	r3, r3, #3
+ 660 001e 1344     		add	r3, r3, r2
+ 661 0020 CA18     		adds	r2, r1, r3
+ 662 0022 3B68     		ldr	r3, [r7]
+ 663 0024 1344     		add	r3, r3, r2
+ 664 0026 0833     		adds	r3, r3, #8
+ 665 0028 0022     		movs	r2, #0
+ 666 002a 1A70     		strb	r2, [r3]
+ 667 002c 3B68     		ldr	r3, [r7]
+ 668 002e 0133     		adds	r3, r3, #1
+ 669 0030 3B60     		str	r3, [r7]
+ 670              	.L42:
+ 671 0032 3B68     		ldr	r3, [r7]
+ 672 0034 282B     		cmp	r3, #40
+ 673 0036 ECDD     		ble	.L43
+ 674 0038 7B68     		ldr	r3, [r7, #4]
+ 675 003a 0133     		adds	r3, r3, #1
+ 676 003c 7B60     		str	r3, [r7, #4]
+ 677              	.L41:
+ 678 003e 7B68     		ldr	r3, [r7, #4]
+ 679 0040 E32B     		cmp	r3, #227
+ 680 0042 E3DD     		ble	.L44
+ 681 0044 00BF     		nop
+ 682 0046 00BF     		nop
+ 683 0048 0C37     		adds	r7, r7, #12
+ 684 004a BD46     		mov	sp, r7
+ 685              		@ sp needed
+ 686 004c 80BC     		pop	{r7}
+ 687 004e 7047     		bx	lr
+ 688              	.L46:
+ 689              		.align	2
+ 690              	.L45:
+ 691 0050 00000000 		.word	TV
+ 693              		.section	.bss.working.5103,"aw",%nobits
+ 696              	working.5103:
+ 697 0000 00       		.space	1
+ 698              		.section	.bss.count.5096,"aw",%nobits
+ 699              		.align	2
+ 702              	count.5096:
+ 703 0000 00000000 		.space	4
+ 704              		.ident	"GCC: (Arch Repository) 9.1.0"
+ARM GAS  /tmp/ccPOS8Ni.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 tv.c
+     /tmp/ccPOS8Ni.s:14     .text.NVIC_EnableIRQ:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:21     .text.NVIC_EnableIRQ:0000000000000000 NVIC_EnableIRQ
+     /tmp/ccPOS8Ni.s:47     .text.NVIC_EnableIRQ:000000000000002c $d
+     /tmp/ccPOS8Ni.s:50     .text.GPIO_Init:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:56     .text.GPIO_Init:0000000000000000 GPIO_Init
+     /tmp/ccPOS8Ni.s:80     .text.GPIO_Init:0000000000000020 $d
+                            *COM*:000000000000248c TV
+     /tmp/ccPOS8Ni.s:84     .data.syncTimings:0000000000000000 $d
+     /tmp/ccPOS8Ni.s:87     .data.syncTimings:0000000000000000 syncTimings
+     /tmp/ccPOS8Ni.s:119    .text.ConfigGPIO:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:125    .text.ConfigGPIO:0000000000000000 ConfigGPIO
+     /tmp/ccPOS8Ni.s:145    .text.ConfigGPIO:0000000000000024 $d
+     /tmp/ccPOS8Ni.s:148    .text.ConfigDMA:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:154    .text.ConfigDMA:0000000000000000 ConfigDMA
+     /tmp/ccPOS8Ni.s:193    .text.ConfigDMA:000000000000004c $d
+     /tmp/ccPOS8Ni.s:199    .text.ReloadDMA:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:205    .text.ReloadDMA:0000000000000000 ReloadDMA
+     /tmp/ccPOS8Ni.s:247    .text.ReloadDMA:0000000000000044 $d
+     /tmp/ccPOS8Ni.s:702    .bss.count.5096:0000000000000000 count.5096
+     /tmp/ccPOS8Ni.s:252    .text.ConfigSPI:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:258    .text.ConfigSPI:0000000000000000 ConfigSPI
+     /tmp/ccPOS8Ni.s:302    .text.ConfigSPI:0000000000000054 $d
+     /tmp/ccPOS8Ni.s:306    .text.ConfigTimers:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:312    .text.ConfigTimers:0000000000000000 ConfigTimers
+     /tmp/ccPOS8Ni.s:392    .text.ConfigTimers:00000000000000c4 $d
+     /tmp/ccPOS8Ni.s:397    .text.TIM2_IRQHandler:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:404    .text.TIM2_IRQHandler:0000000000000000 TIM2_IRQHandler
+     /tmp/ccPOS8Ni.s:525    .text.TIM2_IRQHandler:00000000000000f8 $d
+     /tmp/ccPOS8Ni.s:696    .bss.working.5103:0000000000000000 working.5103
+     /tmp/ccPOS8Ni.s:531    .text.DMA1_Channel3_IRQHandler:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:538    .text.DMA1_Channel3_IRQHandler:0000000000000000 DMA1_Channel3_IRQHandler
+     /tmp/ccPOS8Ni.s:566    .text.DMA1_Channel3_IRQHandler:0000000000000034 $d
+     /tmp/ccPOS8Ni.s:571    .text.TV_Init:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:578    .text.TV_Init:0000000000000000 TV_Init
+     /tmp/ccPOS8Ni.s:604    .text.TV_Init:0000000000000038 $d
+     /tmp/ccPOS8Ni.s:607    .text.TV_Stop:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:614    .text.TV_Stop:0000000000000000 TV_Stop
+     /tmp/ccPOS8Ni.s:632    .text.TV_ClearScreen:0000000000000000 $t
+     /tmp/ccPOS8Ni.s:639    .text.TV_ClearScreen:0000000000000000 TV_ClearScreen
+     /tmp/ccPOS8Ni.s:691    .text.TV_ClearScreen:0000000000000050 $d
+     /tmp/ccPOS8Ni.s:697    .bss.working.5103:0000000000000000 $d
+     /tmp/ccPOS8Ni.s:699    .bss.count.5096:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+GPIO_ConfPin

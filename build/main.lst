@@ -1,0 +1,249 @@
+ARM GAS  /tmp/ccn533Yt.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"main.c"
+  12              		.text
+  13              		.section	.text.GPIO_Init,"ax",%progbits
+  14              		.align	1
+  15              		.arch armv7-m
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu softvfp
+  21              	GPIO_Init:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 0346     		mov	r3, r0
+  29 0008 FB71     		strb	r3, [r7, #7]
+  30 000a 054B     		ldr	r3, .L2
+  31 000c 9A69     		ldr	r2, [r3, #24]
+  32 000e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  33 0010 0349     		ldr	r1, .L2
+  34 0012 1343     		orrs	r3, r3, r2
+  35 0014 8B61     		str	r3, [r1, #24]
+  36 0016 00BF     		nop
+  37 0018 0C37     		adds	r7, r7, #12
+  38 001a BD46     		mov	sp, r7
+  39              		@ sp needed
+  40 001c 80BC     		pop	{r7}
+  41 001e 7047     		bx	lr
+  42              	.L3:
+  43              		.align	2
+  44              	.L2:
+  45 0020 00100240 		.word	1073876992
+  47              		.global	cnt
+  48              		.section	.bss.cnt,"aw",%nobits
+  49              		.align	2
+  52              	cnt:
+  53 0000 00000000 		.space	4
+  54              		.section	.text.delay,"ax",%progbits
+  55              		.align	1
+  56              		.global	delay
+  57              		.syntax unified
+  58              		.thumb
+  59              		.thumb_func
+  60              		.fpu softvfp
+  62              	delay:
+ARM GAS  /tmp/ccn533Yt.s 			page 2
+
+
+  63              		@ args = 0, pretend = 0, frame = 8
+  64              		@ frame_needed = 1, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  66 0000 80B4     		push	{r7}
+  67 0002 83B0     		sub	sp, sp, #12
+  68 0004 00AF     		add	r7, sp, #0
+  69 0006 7860     		str	r0, [r7, #4]
+  70 0008 084A     		ldr	r2, .L6
+  71 000a 7B68     		ldr	r3, [r7, #4]
+  72 000c 1360     		str	r3, [r2]
+  73 000e 00BF     		nop
+  74              	.L5:
+  75 0010 064B     		ldr	r3, .L6
+  76 0012 1B68     		ldr	r3, [r3]
+  77 0014 5A1E     		subs	r2, r3, #1
+  78 0016 0549     		ldr	r1, .L6
+  79 0018 0A60     		str	r2, [r1]
+  80 001a 002B     		cmp	r3, #0
+  81 001c F8D1     		bne	.L5
+  82 001e 00BF     		nop
+  83 0020 00BF     		nop
+  84 0022 0C37     		adds	r7, r7, #12
+  85 0024 BD46     		mov	sp, r7
+  86              		@ sp needed
+  87 0026 80BC     		pop	{r7}
+  88 0028 7047     		bx	lr
+  89              	.L7:
+  90 002a 00BF     		.align	2
+  91              	.L6:
+  92 002c 00000000 		.word	cnt
+  94              		.section	.text.ConfigClock,"ax",%progbits
+  95              		.align	1
+  96              		.global	ConfigClock
+  97              		.syntax unified
+  98              		.thumb
+  99              		.thumb_func
+ 100              		.fpu softvfp
+ 102              	ConfigClock:
+ 103              		@ args = 0, pretend = 0, frame = 0
+ 104              		@ frame_needed = 1, uses_anonymous_args = 0
+ 105              		@ link register save eliminated.
+ 106 0000 80B4     		push	{r7}
+ 107 0002 00AF     		add	r7, sp, #0
+ 108 0004 264B     		ldr	r3, .L12
+ 109 0006 1B68     		ldr	r3, [r3]
+ 110 0008 254A     		ldr	r2, .L12
+ 111 000a 43F48033 		orr	r3, r3, #65536
+ 112 000e 1360     		str	r3, [r2]
+ 113 0010 00BF     		nop
+ 114              	.L9:
+ 115 0012 234B     		ldr	r3, .L12
+ 116 0014 1B68     		ldr	r3, [r3]
+ 117 0016 03F40033 		and	r3, r3, #131072
+ 118 001a 002B     		cmp	r3, #0
+ 119 001c F9D0     		beq	.L9
+ 120 001e 204B     		ldr	r3, .L12
+ 121 0020 5B68     		ldr	r3, [r3, #4]
+ARM GAS  /tmp/ccn533Yt.s 			page 3
+
+
+ 122 0022 1F4A     		ldr	r2, .L12
+ 123 0024 43F48063 		orr	r3, r3, #1024
+ 124 0028 5360     		str	r3, [r2, #4]
+ 125 002a 1D4B     		ldr	r3, .L12
+ 126 002c 1C4A     		ldr	r2, .L12
+ 127 002e 5B68     		ldr	r3, [r3, #4]
+ 128 0030 5360     		str	r3, [r2, #4]
+ 129 0032 1B4B     		ldr	r3, .L12
+ 130 0034 1A4A     		ldr	r2, .L12
+ 131 0036 5B68     		ldr	r3, [r3, #4]
+ 132 0038 5360     		str	r3, [r2, #4]
+ 133 003a 1A4B     		ldr	r3, .L12+4
+ 134 003c 1B68     		ldr	r3, [r3]
+ 135 003e 194A     		ldr	r2, .L12+4
+ 136 0040 43F00403 		orr	r3, r3, #4
+ 137 0044 1360     		str	r3, [r2]
+ 138 0046 164B     		ldr	r3, .L12
+ 139 0048 5B68     		ldr	r3, [r3, #4]
+ 140 004a 154A     		ldr	r2, .L12
+ 141 004c 43F4E013 		orr	r3, r3, #1835008
+ 142 0050 5360     		str	r3, [r2, #4]
+ 143 0052 134B     		ldr	r3, .L12
+ 144 0054 5B68     		ldr	r3, [r3, #4]
+ 145 0056 124A     		ldr	r2, .L12
+ 146 0058 43F48033 		orr	r3, r3, #65536
+ 147 005c 5360     		str	r3, [r2, #4]
+ 148 005e 104B     		ldr	r3, .L12
+ 149 0060 1B68     		ldr	r3, [r3]
+ 150 0062 0F4A     		ldr	r2, .L12
+ 151 0064 43F08073 		orr	r3, r3, #16777216
+ 152 0068 1360     		str	r3, [r2]
+ 153 006a 00BF     		nop
+ 154              	.L10:
+ 155 006c 0C4B     		ldr	r3, .L12
+ 156 006e 1B68     		ldr	r3, [r3]
+ 157 0070 03F00073 		and	r3, r3, #33554432
+ 158 0074 002B     		cmp	r3, #0
+ 159 0076 F9D0     		beq	.L10
+ 160 0078 094B     		ldr	r3, .L12
+ 161 007a 5B68     		ldr	r3, [r3, #4]
+ 162 007c 084A     		ldr	r2, .L12
+ 163 007e 43F00203 		orr	r3, r3, #2
+ 164 0082 5360     		str	r3, [r2, #4]
+ 165 0084 00BF     		nop
+ 166              	.L11:
+ 167 0086 064B     		ldr	r3, .L12
+ 168 0088 5B68     		ldr	r3, [r3, #4]
+ 169 008a 03F00803 		and	r3, r3, #8
+ 170 008e 002B     		cmp	r3, #0
+ 171 0090 F9D0     		beq	.L11
+ 172 0092 054B     		ldr	r3, .L12+8
+ 173 0094 054A     		ldr	r2, .L12+12
+ 174 0096 1A60     		str	r2, [r3]
+ 175 0098 00BF     		nop
+ 176 009a BD46     		mov	sp, r7
+ 177              		@ sp needed
+ 178 009c 80BC     		pop	{r7}
+ARM GAS  /tmp/ccn533Yt.s 			page 4
+
+
+ 179 009e 7047     		bx	lr
+ 180              	.L13:
+ 181              		.align	2
+ 182              	.L12:
+ 183 00a0 00100240 		.word	1073876992
+ 184 00a4 00200240 		.word	1073881088
+ 185 00a8 00000000 		.word	SystemCoreClock
+ 186 00ac 00A24A04 		.word	72000000
+ 188              		.section	.text.main,"ax",%progbits
+ 189              		.align	1
+ 190              		.global	main
+ 191              		.syntax unified
+ 192              		.thumb
+ 193              		.thumb_func
+ 194              		.fpu softvfp
+ 196              	main:
+ 197              		@ args = 0, pretend = 0, frame = 0
+ 198              		@ frame_needed = 1, uses_anonymous_args = 0
+ 199 0000 80B5     		push	{r7, lr}
+ 200 0002 00AF     		add	r7, sp, #0
+ 201 0004 FFF7FEFF 		bl	ConfigClock
+ 202 0008 1420     		movs	r0, #20
+ 203 000a FFF7FEFF 		bl	GPIO_Init
+ 204 000e 0222     		movs	r2, #2
+ 205 0010 0D21     		movs	r1, #13
+ 206 0012 0748     		ldr	r0, .L16
+ 207 0014 FFF7FEFF 		bl	GPIO_ConfPin
+ 208 0018 FFF7FEFF 		bl	TV_ClearScreen
+ 209 001c FFF7FEFF 		bl	TV_Init
+ 210 0020 FFF7FEFF 		bl	TV_ListenUSART1
+ 211 0024 FFF7FEFF 		bl	TV_MainLoop
+ 212 0028 0023     		movs	r3, #0
+ 213 002a 1846     		mov	r0, r3
+ 214 002c 80BD     		pop	{r7, pc}
+ 215              	.L17:
+ 216 002e 00BF     		.align	2
+ 217              	.L16:
+ 218 0030 00100140 		.word	1073811456
+ 220              		.ident	"GCC: (Arch Repository) 9.1.0"
+ARM GAS  /tmp/ccn533Yt.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/ccn533Yt.s:14     .text.GPIO_Init:0000000000000000 $t
+     /tmp/ccn533Yt.s:21     .text.GPIO_Init:0000000000000000 GPIO_Init
+     /tmp/ccn533Yt.s:45     .text.GPIO_Init:0000000000000020 $d
+     /tmp/ccn533Yt.s:52     .bss.cnt:0000000000000000 cnt
+     /tmp/ccn533Yt.s:49     .bss.cnt:0000000000000000 $d
+     /tmp/ccn533Yt.s:55     .text.delay:0000000000000000 $t
+     /tmp/ccn533Yt.s:62     .text.delay:0000000000000000 delay
+     /tmp/ccn533Yt.s:92     .text.delay:000000000000002c $d
+     /tmp/ccn533Yt.s:95     .text.ConfigClock:0000000000000000 $t
+     /tmp/ccn533Yt.s:102    .text.ConfigClock:0000000000000000 ConfigClock
+     /tmp/ccn533Yt.s:183    .text.ConfigClock:00000000000000a0 $d
+     /tmp/ccn533Yt.s:189    .text.main:0000000000000000 $t
+     /tmp/ccn533Yt.s:196    .text.main:0000000000000000 main
+     /tmp/ccn533Yt.s:218    .text.main:0000000000000030 $d
+
+UNDEFINED SYMBOLS
+SystemCoreClock
+GPIO_ConfPin
+TV_ClearScreen
+TV_Init
+TV_ListenUSART1
+TV_MainLoop
